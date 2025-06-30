@@ -48,6 +48,7 @@
             salvarBtn.TabIndex = 0;
             salvarBtn.Text = "Salvar";
             salvarBtn.UseVisualStyleBackColor = true;
+            salvarBtn.Click += salvarBtn_Click;
             // 
             // cancelarBtn
             // 
@@ -57,6 +58,7 @@
             cancelarBtn.TabIndex = 1;
             cancelarBtn.Text = "Cancelar";
             cancelarBtn.UseVisualStyleBackColor = true;
+            cancelarBtn.Click += cancelarBtn_Click;
             // 
             // label1
             // 

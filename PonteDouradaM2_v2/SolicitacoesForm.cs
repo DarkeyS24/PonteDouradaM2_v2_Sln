@@ -43,8 +43,8 @@ namespace PonteDouradaM2_v2
                             solicitacao.ProdutoSolicitacaos.ElementAt(0).Produto.Fornecedor.RazaoSocial,
                             solicitacao.DataCadastro.ToString("dd/MM/yyyy")
                         );
-                        pessoaId = solicitacao.Cliente.PessoaId;
-                        clienteId = solicitacao.ClienteId;
+                        this.pessoaId = solicitacao.Cliente.PessoaId;
+                        this.clienteId = solicitacao.ClienteId;
                     }
                 }
             }
@@ -58,6 +58,32 @@ namespace PonteDouradaM2_v2
             solicitacaoForm.setPrevForm(this, pessoaId, clienteId);
             this.Enabled = false;
             solicitacaoForm.Show();
+        }
+
+        private void editarBtn_Click(object sender, EventArgs e)
+        {
+            using (var context = new SessaoXContext())
+            {
+                if (dgvSolicitacoes.SelectedRows.Count > 0)
+                {
+                    int id = Convert.ToInt32(dgvSolicitacoes.SelectedRows[0].Cells[0].Value);
+                    var solicitacao = context.ProdutoSolicitacaos
+                        .Include(s => s.Solicitcao)
+                        .Include(ps => ps.Produto)
+                        .ThenInclude(p => p.Fornecedor)
+                        .Where(s => s.SolicitcaoId == id).ToList();
+                    if (solicitacao != null)
+                    {
+                        AddEditSolicitacaoForm solicitacaoForm = new AddEditSolicitacaoForm();
+                        solicitacaoForm.setAction(1);
+                        solicitacaoForm.SetSearchedTable();
+                        solicitacaoForm.setPrevForm(this, pessoaId, clienteId);
+                        solicitacaoForm.setSolicitacao(solicitacao);
+                        this.Enabled = false;
+                        solicitacaoForm.Show();
+                    }
+                }
+            }
         }
     }
 }

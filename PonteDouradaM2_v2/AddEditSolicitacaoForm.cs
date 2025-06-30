@@ -16,6 +16,8 @@ namespace PonteDouradaM2_v2
     public partial class AddEditSolicitacaoForm : Form
     {
         private int action;
+        private Solicitacao solicitacao;
+        private List<ProdutoSolicitacao> solicitacoesP;
         private SolicitacoesForm form;
         private int pessoaId;
         private int clienteId;
@@ -125,6 +127,21 @@ namespace PonteDouradaM2_v2
             this.Close();
         }
 
+        public void setSolicitacao(List<ProdutoSolicitacao> solicitacao)
+        {
+            foreach (var item in solicitacao)
+            {
+                dgvAdicionados.Rows.Add(
+                    item.Produto.Nome,
+                    item.Produto.Fornecedor.RazaoSocial
+                );
+            }
+            this.solicitacao = solicitacao.ElementAt(0).Solicitcao;
+            this.solicitacoesP = solicitacao;
+            descTxt.Text = this.solicitacao.Descricao;
+            validadePicker.Value = DateTime.Parse(this.solicitacao.Validade.ToString("dd/MM/yyyy"));
+        }
+
         private void salvarBtn_Click(object sender, EventArgs e)
         {
             var booleano = IsEmptyFields();
@@ -132,39 +149,107 @@ namespace PonteDouradaM2_v2
             {
                 using (var context = new SessaoXContext())
                 {
-                    Solicitacao solicitacao = new Solicitacao()
+                    if (action == 0)
                     {
-                        ClienteId = clienteId,
-                        Cliente = context.Clientes
-                            .Include(c => c.Pessoa)
-                            .FirstOrDefault(c => c.PessoaId == pessoaId),
-                        Descricao = descTxt.Text,
-                        DataCadastro = DateOnly.FromDateTime(DateTime.Now),
-                        Validade = DateOnly.FromDateTime((validadePicker.Value))
-                    };
-                    context.Solicitacaos.Add(solicitacao);
-                    context.SaveChanges();
-                    foreach (DataGridViewRow row in dgvAdicionados.Rows)
-                    {
-                        var produtoNome = row.Cells[0].Value.ToString();
-                        var fornecedorRazaoSocial = row.Cells[1].Value.ToString();
-                        var produto = context.Produtos
-                            .Include(p => p.Fornecedor)
-                            .FirstOrDefault(p => p.Nome == produtoNome && p.Fornecedor.RazaoSocial == fornecedorRazaoSocial);
-                        if (produto != null)
+                        Solicitacao solicitacaoEF = new Solicitacao()
                         {
-                            ProdutoSolicitacao produtoSolicitacao = new ProdutoSolicitacao
+                            ClienteId = clienteId,
+                            Cliente = context.Clientes
+                                .Include(c => c.Pessoa)
+                                .FirstOrDefault(c => c.PessoaId == pessoaId),
+                            Descricao = descTxt.Text,
+                            DataCadastro = DateOnly.FromDateTime(DateTime.Now),
+                            Validade = DateOnly.FromDateTime((validadePicker.Value))
+                        };
+                        context.Solicitacaos.Add(solicitacaoEF);
+                        context.SaveChanges();
+                        foreach (DataGridViewRow row in dgvAdicionados.Rows)
+                        {
+                            if (row.Cells[0].Value != null)
                             {
-                                ProdutoId = produto.Id,
-                                Solicitcao = solicitacao
-                            };
-                            context.ProdutoSolicitacaos.Add(produtoSolicitacao);
+                                var produtoNome = row.Cells[0].Value.ToString();
+                                var fornecedorRazaoSocial = row.Cells[1].Value.ToString();
+                                var produto = context.Produtos
+                                    .Include(p => p.Fornecedor)
+                                    .FirstOrDefault(p => p.Nome == produtoNome && p.Fornecedor.RazaoSocial == fornecedorRazaoSocial);
+                                if (produto != null)
+                                {
+                                    ProdutoSolicitacao produtoSolicitacao = new ProdutoSolicitacao
+                                    {
+                                        ProdutoId = produto.Id,
+                                        Solicitcao = solicitacaoEF
+                                    };
+                                    context.ProdutoSolicitacaos.Add(produtoSolicitacao);
+                                }
+                            }
+                        }
+                        context.SaveChanges();
+                        MessageBox.Show("Solicitação criada com sucesso!", "Sucesso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        form.setDataGridView(pessoaId);
+                        form.Enabled = true;
+                        this.Close();
+                    }
+                    else if (action == 1)
+                    {
+                        ProdutoSolicitacao produtos;
+
+                        foreach (DataGridViewRow row in dgvAdicionados.Rows)
+                        {
+                            if(row.Cells[0].Value != null)
+                            {
+                                if (!solicitacoesP.Any(sp => sp.Produto.Nome == row.Cells[0].Value.ToString()))
+                                {
+                                    var produto = context.Produtos
+                                        .Include(p => p.Fornecedor)
+                                        .FirstOrDefault(p => p.Nome == row.Cells[0].Value.ToString() &&
+                                                             p.Fornecedor.RazaoSocial == row.Cells[1].Value.ToString());
+                                    if (produto != null)
+                                    {
+                                        produtos = new ProdutoSolicitacao
+                                        {
+                                            ProdutoId = produto.Id,
+                                            Produto = produto,
+                                            Solicitcao = solicitacao,
+                                            SolicitcaoId = solicitacao.Id
+                                        };
+                                        solicitacoesP.Add(produtos);
+                                    }
+                                }
+                            }
+                        }
+
+                        if (IsEmptyFields())
+                        {
+                            solicitacao.Descricao = descTxt.Text;
+                            solicitacao.Validade = DateOnly.FromDateTime(validadePicker.Value);
+                            try
+                            {
+                                foreach (var item in solicitacoesP)
+                                {
+                                    //item.Produto.Fornecedor = context.Fornecedors.FirstOrDefault(f => f.Id == item.Produto.FornecedorId);
+                                    context.ChangeTracker.Clear();
+                                    if (item.Id > 0)
+                                    {
+                                        context.Update(item);
+                                    }
+                                    else
+                                    {
+                                        context.Add(item);
+                                    }
+                                }
+                                context.Update(solicitacao);
+                                context.SaveChanges();
+                                MessageBox.Show($"Solicitação atualizada com sucesso.", "Save", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                form.setDataGridView(pessoaId);
+                                form.Enabled = true;
+                                this.Close();
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"Exception: {ex.Message}","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
                         }
                     }
-                    context.SaveChanges();
-                    form.setDataGridView(pessoaId);
-                    form.Enabled = true;
-                    this.Close();
                 }
             }
         }

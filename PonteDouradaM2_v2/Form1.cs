@@ -11,6 +11,11 @@ namespace PonteDouradaM2_v2
 
         private void entrarBtn_Click(object sender, EventArgs e)
         {
+            login();
+        }
+
+        private void login()
+        {
             using (var context = new SessaoXContext())
             {
                 if (string.IsNullOrEmpty(usuarioTxt.Text))
@@ -55,6 +60,14 @@ namespace PonteDouradaM2_v2
         {
             CadastroForm cadastroForm = new CadastroForm();
             cadastroForm.Show();
+        }
+
+        private void senhaTxt_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == '\r')
+            {
+                login();
+            }
         }
     }
 }

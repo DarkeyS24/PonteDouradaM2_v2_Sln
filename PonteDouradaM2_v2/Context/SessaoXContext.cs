@@ -96,7 +96,8 @@ public partial class SessaoXContext : DbContext
 
         modelBuilder.Entity<Cliente>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Cliente__3214EC07C7C7C8A4");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("Cliente");
 
@@ -162,7 +163,8 @@ public partial class SessaoXContext : DbContext
 
         modelBuilder.Entity<Fornecedor>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Forneced__3214EC072F8BC8DF");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("Fornecedor");
 
@@ -187,7 +189,8 @@ public partial class SessaoXContext : DbContext
 
         modelBuilder.Entity<Pessoa>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Pessoa__3214EC078785D791");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("Pessoa");
 
@@ -201,7 +204,8 @@ public partial class SessaoXContext : DbContext
 
         modelBuilder.Entity<Produto>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Produto__3214EC0725469F19");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("Produto");
 
@@ -223,19 +227,18 @@ public partial class SessaoXContext : DbContext
 
         modelBuilder.Entity<ProdutoSolicitacao>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__ProdutoS__3214EC073C4F35A2");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("ProdutoSolicitacao");
 
             entity.HasOne(d => d.Produto).WithMany(p => p.ProdutoSolicitacaos)
                 .HasForeignKey(d => d.ProdutoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ProdutoSo__Produ__534D60F1");
+                .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasOne(d => d.Solicitcao).WithMany(p => p.ProdutoSolicitacaos)
                 .HasForeignKey(d => d.SolicitcaoId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ProdutoSo__Solic__5441852A");
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Profissional>(entity =>
@@ -282,7 +285,8 @@ public partial class SessaoXContext : DbContext
 
         modelBuilder.Entity<Solicitacao>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Solicita__3214EC071D48CDB2");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("Solicitacao");
 
@@ -292,13 +296,13 @@ public partial class SessaoXContext : DbContext
 
             entity.HasOne(d => d.Cliente).WithMany(p => p.Solicitacaos)
                 .HasForeignKey(d => d.ClienteId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Solicitac__Clien__5070F446");
+                .OnDelete(DeleteBehavior.Cascade);
         });
 
         modelBuilder.Entity<Usuario>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Usuario__3214EC07308F4D6B");
+            entity.HasKey(e => e.Id).HasName("Id");
+            entity.Property(e => e.Id).ValueGeneratedOnAdd();
 
             entity.ToTable("Usuario");
 

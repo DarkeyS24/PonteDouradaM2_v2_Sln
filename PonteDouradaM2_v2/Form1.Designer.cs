@@ -113,6 +113,7 @@
             senhaTxt.Size = new Size(373, 40);
             senhaTxt.TabIndex = 6;
             senhaTxt.UseSystemPasswordChar = true;
+            senhaTxt.KeyPress += senhaTxt_KeyPress;
             // 
             // label3
             // 

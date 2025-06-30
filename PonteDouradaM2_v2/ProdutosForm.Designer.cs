@@ -54,6 +54,7 @@
             editarBtn.TabIndex = 9;
             editarBtn.Text = "Editar";
             editarBtn.UseVisualStyleBackColor = false;
+            editarBtn.Click += editarBtn_Click;
             // 
             // novoBtn
             // 
@@ -64,16 +65,18 @@
             novoBtn.TabIndex = 8;
             novoBtn.Text = "Novo";
             novoBtn.UseVisualStyleBackColor = false;
+            novoBtn.Click += novoBtn_Click;
             // 
-            // dgvSolicitacoes
+            // dgvProdutos
             // 
             dgvProdutos.BackgroundColor = Color.White;
             dgvProdutos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvProdutos.Columns.AddRange(new DataGridViewColumn[] { NomeColumn, TipoColumn, FornecedorColumn, DataColumn });
             dgvProdutos.Location = new Point(11, 215);
-            dgvProdutos.Name = "dgvSolicitacoes";
+            dgvProdutos.Name = "dgvProdutos";
             dgvProdutos.RowHeadersVisible = false;
             dgvProdutos.RowHeadersWidth = 51;
+            dgvProdutos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvProdutos.Size = new Size(1127, 382);
             dgvProdutos.TabIndex = 7;
             // 
@@ -133,7 +136,7 @@
             pictureBox1.TabIndex = 5;
             pictureBox1.TabStop = false;
             // 
-            // Produtos
+            // ProdutosForm
             // 
             AutoScaleDimensions = new SizeF(16F, 32F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -145,7 +148,7 @@
             Controls.Add(pictureBox1);
             Font = new Font("Uber Move", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Margin = new Padding(6, 5, 6, 5);
-            Name = "Produtos";
+            Name = "ProdutosForm";
             Size = new Size(1149, 668);
             ((System.ComponentModel.ISupportInitialize)dgvProdutos).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

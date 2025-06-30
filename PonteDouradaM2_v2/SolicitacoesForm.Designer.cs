@@ -74,6 +74,7 @@
             dgvSolicitacoes.Name = "dgvSolicitacoes";
             dgvSolicitacoes.RowHeadersVisible = false;
             dgvSolicitacoes.RowHeadersWidth = 51;
+            dgvSolicitacoes.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvSolicitacoes.Size = new Size(1127, 382);
             dgvSolicitacoes.TabIndex = 2;
             // 
@@ -133,6 +134,7 @@
             editarBtn.TabIndex = 4;
             editarBtn.Text = "Editar";
             editarBtn.UseVisualStyleBackColor = false;
+            editarBtn.Click += editarBtn_Click;
             // 
             // SolicitacoesForm
             // 
