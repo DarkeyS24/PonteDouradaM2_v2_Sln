@@ -13,6 +13,13 @@ namespace PonteDouradaM2_v2
         {
             login();
         }
+        private void setFieldsEnabled()
+        {
+            usuarioTxt.Enabled = false;
+            senhaTxt.Enabled = false;
+            entrarBtn.Enabled = false;
+            cadastroLink.Enabled = false;
+        }
 
         private void login()
         {
@@ -40,12 +47,14 @@ namespace PonteDouradaM2_v2
                             var pessoaId = usuario.PessoaId;
                             produtosForm1.setDataGridView(pessoaId);
                             produtosForm1.Visible = true;
+                            setFieldsEnabled();
                         }
                         else
                         {
                             var pessoaId = usuario.PessoaId;
                             solicitacoesForm1.setDataGridView(pessoaId);
                             solicitacoesForm1.Visible = true;
+                            setFieldsEnabled();
                         }
                     }
                     else

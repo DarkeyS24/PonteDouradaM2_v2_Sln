@@ -135,6 +135,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Gold;
             ClientSize = new Size(604, 463);
+            ControlBox = false;
             Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -148,6 +149,7 @@
             Font = new Font("Uber Move", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Margin = new Padding(6, 5, 6, 5);
             Name = "AddEditProdutoForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "AddEditProdutoForm";
             ResumeLayout(false);
             PerformLayout();

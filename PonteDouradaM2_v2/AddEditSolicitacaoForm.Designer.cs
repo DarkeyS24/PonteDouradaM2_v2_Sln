@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AddEditSolicitacaoForm));
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle11 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle12 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             label1 = new Label();
             tipoCb = new ComboBox();
             nomeTxt = new TextBox();
@@ -108,8 +108,8 @@
             // 
             // NomeColumn
             // 
-            dataGridViewCellStyle9.Font = new Font("Uber Move", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            NomeColumn.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle1.Font = new Font("Uber Move", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            NomeColumn.DefaultCellStyle = dataGridViewCellStyle1;
             NomeColumn.HeaderText = "Nome";
             NomeColumn.MinimumWidth = 6;
             NomeColumn.Name = "NomeColumn";
@@ -117,8 +117,8 @@
             // 
             // FornecedorColumn
             // 
-            dataGridViewCellStyle10.Font = new Font("Uber Move", 13.8F, FontStyle.Bold);
-            FornecedorColumn.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle2.Font = new Font("Uber Move", 13.8F, FontStyle.Bold);
+            FornecedorColumn.DefaultCellStyle = dataGridViewCellStyle2;
             FornecedorColumn.HeaderText = "Fornecedor";
             FornecedorColumn.MinimumWidth = 6;
             FornecedorColumn.Name = "FornecedorColumn";
@@ -203,8 +203,8 @@
             // 
             // dataGridViewTextBoxColumn1
             // 
-            dataGridViewCellStyle11.Font = new Font("Uber Move", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle3.Font = new Font("Uber Move", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewTextBoxColumn1.HeaderText = "Nome";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -212,8 +212,8 @@
             // 
             // dataGridViewTextBoxColumn2
             // 
-            dataGridViewCellStyle12.Font = new Font("Uber Move", 13.8F, FontStyle.Bold);
-            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle4.Font = new Font("Uber Move", 13.8F, FontStyle.Bold);
+            dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewTextBoxColumn2.HeaderText = "Fornecedor";
             dataGridViewTextBoxColumn2.MinimumWidth = 6;
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
@@ -254,6 +254,7 @@
             AutoScroll = true;
             BackColor = Color.Gold;
             ClientSize = new Size(618, 1077);
+            ControlBox = false;
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(adicionarBtn);
@@ -273,6 +274,7 @@
             Font = new Font("Uber Move", 16.1999989F, FontStyle.Bold, GraphicsUnit.Point, 0);
             Margin = new Padding(6, 5, 6, 5);
             Name = "AddEditSolicitacaoForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Nova Solicitação";
             ((System.ComponentModel.ISupportInitialize)searchPb).EndInit();
             ((System.ComponentModel.ISupportInitialize)dgvPesquisados).EndInit();

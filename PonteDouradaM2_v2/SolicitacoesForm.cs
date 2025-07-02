@@ -20,6 +20,7 @@ namespace PonteDouradaM2_v2
         public SolicitacoesForm()
         {
             InitializeComponent();
+            
         }
 
         public void setDataGridView(int pessoaId)
@@ -57,6 +58,7 @@ namespace PonteDouradaM2_v2
             solicitacaoForm.SetSearchedTable();
             solicitacaoForm.setPrevForm(this, pessoaId, clienteId);
             this.Enabled = false;
+            solicitacaoForm.Height = 800;
             solicitacaoForm.Show();
         }
 
@@ -68,7 +70,6 @@ namespace PonteDouradaM2_v2
                 {
                     int id = Convert.ToInt32(dgvSolicitacoes.SelectedRows[0].Cells[0].Value);
                     var solicitacao = context.ProdutoSolicitacaos
-                        .Include(s => s.Solicitcao)
                         .Include(ps => ps.Produto)
                         .ThenInclude(p => p.Fornecedor)
                         .Where(s => s.SolicitcaoId == id).ToList();
@@ -80,6 +81,7 @@ namespace PonteDouradaM2_v2
                         solicitacaoForm.setPrevForm(this, pessoaId, clienteId);
                         solicitacaoForm.setSolicitacao(solicitacao);
                         this.Enabled = false;
+                        solicitacaoForm.Height = 800;
                         solicitacaoForm.Show();
                     }
                 }
